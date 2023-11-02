@@ -1,3 +1,0 @@
-/home/cristi/PAOO/PAOO/tema1-2/build/CMakeFiles/circus.dir
-/home/cristi/PAOO/PAOO/tema1-2/build/CMakeFiles/edit_cache.dir
-/home/cristi/PAOO/PAOO/tema1-2/build/CMakeFiles/rebuild_cache.dir
