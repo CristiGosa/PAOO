@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/cristi/PAOO/tema1/src
+CXX_INCLUDES = -I/home/cristi/PAOO/PAOO/tema1/src
 
 CXX_FLAGS = -std=c++14
 

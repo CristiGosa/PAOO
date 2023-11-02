@@ -1,6 +1,6 @@
 CMakeFiles/circus.dir/src/main.cpp.o: \
- /home/cristi/PAOO/tema1/src/main.cpp /usr/include/stdc-predef.h \
- /home/cristi/PAOO/tema1/src/circus.hpp /usr/include/c++/11/string \
+ /home/cristi/PAOO/PAOO/tema1/src/main.cpp /usr/include/stdc-predef.h \
+ /home/cristi/PAOO/PAOO/tema1/src/circus.hpp /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

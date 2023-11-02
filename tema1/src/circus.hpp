@@ -34,8 +34,8 @@ namespace circus
     public:
         string name;
         void Greetings();
-        void Perform(Animal animal);
-        void AnnounceBest(Animal animal);
+        void Perform(Animal* animal);
+        void AnnounceBest(Animal* animal);
         void End();
     };
 }

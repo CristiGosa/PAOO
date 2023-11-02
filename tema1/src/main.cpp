@@ -1,24 +1,29 @@
 #include "circus.hpp"
+using namespace circus;
 
 int main()
 {
-    circus::Circus mainCircus = circus::Circus("ZooMumba");
+    Circus* mainCircus = new Circus("ZooMumba");
 
-    mainCircus.Greetings();
+    mainCircus->Greetings();
 
-    circus::Animal firstAnimal = circus::Animal("lion", "Alex", "jump through a fiery circle");
+    Animal *firstAnimal = new Animal("lion", "Alex", "jump through a fiery circle");
 
-    mainCircus.Perform(firstAnimal);
+    mainCircus->Perform(firstAnimal);
+    // here the copy constructor is used
 
-    circus::Animal secondAnimal = circus::Animal("turtle", "Fred", "do nothing, but with style");
+    Animal* secondAnimal = new Animal("turtle", "Fred", "do nothing, but with style");
 
-    mainCircus.Perform(secondAnimal);
-    // the copy constructor is used when passing the object animal by value inside the Perform function
+    mainCircus->Perform(secondAnimal);
 
-    circus::Animal winner = firstAnimal;
-    // the assignment operator is used by assigning the winner without creating a new animal
+    mainCircus->AnnounceBest(secondAnimal);
+    //here the assignment operator is used
 
-    mainCircus.AnnounceBest(winner);
+    mainCircus->End();
 
-    mainCircus.End();
-} // after the execution of the program, the destructor should be called 3 times
+    delete firstAnimal;
+    delete secondAnimal;
+    delete mainCircus;
+
+    return 0;
+}
