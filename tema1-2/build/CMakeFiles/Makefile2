@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/cristi/PAOO/PAOO/tema1
+CMAKE_SOURCE_DIR = /home/cristi/PAOO/PAOO/tema1-2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cristi/PAOO/PAOO/tema1/build
+CMAKE_BINARY_DIR = /home/cristi/PAOO/PAOO/tema1-2/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/circus.dir/clean
 CMakeFiles/circus.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/circus.dir/build.make CMakeFiles/circus.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/circus.dir/build.make CMakeFiles/circus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cristi/PAOO/PAOO/tema1/build/CMakeFiles --progress-num=1,2,3 "Built target circus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cristi/PAOO/PAOO/tema1-2/build/CMakeFiles --progress-num=1,2,3 "Built target circus"
 .PHONY : CMakeFiles/circus.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/circus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristi/PAOO/PAOO/tema1/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristi/PAOO/PAOO/tema1-2/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/circus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristi/PAOO/PAOO/tema1/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cristi/PAOO/PAOO/tema1-2/build/CMakeFiles 0
 .PHONY : CMakeFiles/circus.dir/rule
 
 # Convenience name for target.

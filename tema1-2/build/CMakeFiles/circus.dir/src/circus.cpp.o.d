@@ -1,5 +1,5 @@
 CMakeFiles/circus.dir/src/circus.cpp.o: \
- /home/cristi/PAOO/PAOO/tema1/src/circus.cpp /usr/include/stdc-predef.h \
+ /home/cristi/PAOO/PAOO/tema1-2/src/circus.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -148,4 +148,4 @@ CMakeFiles/circus.dir/src/circus.cpp.o: \
  /usr/include/c++/11/bits/allocated_ptr.h \
  /usr/include/c++/11/ext/aligned_buffer.h \
  /usr/include/c++/11/bits/list.tcc \
- /home/cristi/PAOO/PAOO/tema1/src/circus.hpp
+ /home/cristi/PAOO/PAOO/tema1-2/src/circus.hpp
