@@ -12,43 +12,52 @@ using namespace std;
 
 namespace circus
 {
-    Animal::Animal(string species, string name, string specialTrick)
+    Lion::Lion(string name, string region, string specialTrick)
     {
         this->name = name;
+        this->region = region;
         this->specialTrick = specialTrick;
-        this->species = species;
-        cout << GREEN_TEXT << "Animal class object created" << endl << RESET_TEXT;
-    };
+        cout << GREEN_TEXT << "Lion class constructor called" << endl << RESET_TEXT;
+    }
 
-    Animal::Animal(const Animal& otherAnimal)
+    Lion::Lion(const Lion& otherAnimal)
     {
         this->name = otherAnimal.name;
+        this->region = otherAnimal.region;
         this->specialTrick = otherAnimal.specialTrick;
-        this->species = otherAnimal.species;
-        cout <<  YELLOW_TEXT << "Animal class copy constructor called" << endl <<  RESET_TEXT;
-    }
+        cout <<  YELLOW_TEXT << "Lion class copy constructor called" << endl <<  RESET_TEXT;
+    };
 
-    Animal::~Animal(){
+    Lion::~Lion()
+    {
         // std::string does not require manual memory management
-        cout << RED_TEXT << "Animal class destructor called" << endl << RESET_TEXT;
+        cout << RED_TEXT << "Lion class destructor called" << endl << RESET_TEXT;
     }
 
-    Animal &Animal::operator=(const Animal &otherAnimal)
+    Lion &Lion::operator=(const Lion &otherAnimal)
     {
         if (this != &otherAnimal)
         {
             this->name = otherAnimal.name;
+            this->region = otherAnimal.region;
             this->specialTrick = otherAnimal.specialTrick;
-            this->species = otherAnimal.species;
         }
-        cout <<  YELLOW_TEXT << "Animal class assignment operator called"<< endl << RESET_TEXT;
+        cout <<  YELLOW_TEXT << "Lion class assignment operator called"<< endl << RESET_TEXT;
         return *this;
     }
 
-    void Animal::Perform()
+    Lion::Lion(Lion &&other)
     {
-        cout << "The " + species + " named " + name + " manages to " + specialTrick + "! ";
-    };
+        swap(this->name, other.name);
+        swap(this->region, other.region);
+        swap(this->specialTrick, other.specialTrick);
+
+        cout << YELLOW_TEXT << "Lion class move constructor called" << endl << RESET_TEXT;
+    }
+
+    void Lion::Perform() {
+        cout << "The lion named " + name + " manages to " + specialTrick + "!" << endl;
+    }
 
     Circus::Circus(string name)
     {
@@ -82,27 +91,27 @@ namespace circus
         cout << "Without further delay, let's see what our fabulous animals have prepared for you!" << endl;
     }
 
-    void Circus::Perform(Animal *animal)
+    void Circus::Perform(Lion *animal)
     {
-        Animal* copy = new Animal(*animal); //the copy constructor is used here to create a copy of animal object to be used in method
+        Lion* copy = new Lion(*animal); //the copy constructor is used here to create a copy of animal object to be used in method
 
         cout << "Everybody, let's welcome " + copy->name + "! ";
-        cout << "He is a " + copy->species + "!" << endl;
+        cout << "He comes to you straight from " + copy ->region + "! " << endl;
         copy->Perform();
         cout << "Spectacular!" << endl;
 
         delete copy;
     }
 
-    void Circus::AnnounceBest(Animal* animal)
+    void Circus::AnnounceBest(Lion* animal)
     {
-        Animal* winner = new Animal("default", "default", "default");
+        Lion* winner = new Lion("default", "default", "default");
 
         if(animal != NULL)
         {
             *winner = *animal; //assignment operator is used to assign the values of the animal given as parameter is it is not null
         }
-        cout << "And the best performance was by far the one of " + winner->name + " the " + winner->species << endl;
+        cout << "And the best performance was by far the one of " + winner->name << endl;
         cout << "A round of applause for him!" << endl;
 
         delete winner;

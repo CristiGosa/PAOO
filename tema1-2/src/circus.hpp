@@ -6,21 +6,32 @@
 using namespace std;
 namespace circus
 {
-    class Animal
+    class IPerformer {
+        public:
+            virtual void Perform() = 0;
+    };
+
+    class Animal : public IPerformer{
+        public: 
+            string name;
+            string region;
+        protected:
+            string specialTrick;
+        public:
+            virtual void Perform() = 0;
+    };
+
+    class Lion : public Animal
     {
-    public:
-        Animal(string species, string name, string specialTrick);
-        Animal(const Animal &otherAnimal);
-        ~Animal();
-        Animal &operator=(const Animal &other);
+        public:
+            Lion(string name, string region, string specialTrick);
+            Lion(const Lion &otherAnimal);
+            ~Lion();
+            Lion &operator=(const Lion &other);
+            Lion(Lion&& other);
 
-    private:
-        string specialTrick; // you are not allowed to know the animal's special trick until they perform
-
-    public:
-        string name;
-        string species;
-        void Perform();
+        public:
+            void Perform() override;
     };
 
     class Circus
@@ -34,8 +45,8 @@ namespace circus
     public:
         string name;
         void Greetings();
-        void Perform(Animal* animal);
-        void AnnounceBest(Animal* animal);
+        void Perform(Lion* animal);
+        void AnnounceBest(Lion* animal);
         void End();
     };
 }

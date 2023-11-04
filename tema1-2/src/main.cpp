@@ -7,22 +7,24 @@ int main()
 
     mainCircus->Greetings();
 
-    Animal *firstAnimal = new Animal("lion", "Alex", "jump through a fiery circle");
+    Lion *firstAnimal = new Lion("Alex", "Africa", "jump through a fiery circle");
 
     mainCircus->Perform(firstAnimal);
     // here the copy constructor is used
 
-    Animal* secondAnimal = new Animal("turtle", "Fred", "do nothing, but with style");
+    Lion secondAnimal = move(*firstAnimal);
+    //here the move constructor is used
 
-    mainCircus->Perform(secondAnimal);
+    delete firstAnimal;
 
-    mainCircus->AnnounceBest(secondAnimal);
+    secondAnimal.name = "Melvin";
+    mainCircus->Perform(&secondAnimal);
+
+    mainCircus->AnnounceBest(&secondAnimal);
     //here the assignment operator is used
 
     mainCircus->End();
 
-    delete firstAnimal;
-    delete secondAnimal;
     delete mainCircus;
 
     return 0;
