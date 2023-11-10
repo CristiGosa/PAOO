@@ -1,10 +1,11 @@
 #include "circus.hpp"
+#include <cstring>
 using namespace circus;
 
 int main()
 {
     Circus* mainCircus = new Circus("ZooMumba");
-
+    
     mainCircus->Greetings();
 
     Lion *firstAnimal = new Lion("Alex", "Africa", "jump through a fiery circle");
@@ -17,7 +18,10 @@ int main()
 
     delete firstAnimal;
 
-    secondAnimal.name = "Melvin";
+    delete[] secondAnimal.name;
+    secondAnimal.name = new char[strlen("Melvin") + 1];
+    strcpy(secondAnimal.name, "Melvin");
+
     mainCircus->Perform(&secondAnimal);
 
     mainCircus->AnnounceBest(&secondAnimal);

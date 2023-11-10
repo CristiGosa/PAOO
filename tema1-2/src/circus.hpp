@@ -8,23 +8,25 @@ namespace circus
 {
     class IPerformer {
         public:
+            virtual ~IPerformer() {};
             virtual void Perform() = 0;
     };
 
     class Animal : public IPerformer{
         public: 
-            string name;
-            string region;
+            char* name;
+            char* region;
         protected:
-            string specialTrick;
+            char* specialTrick;
         public:
+            virtual ~Animal() {};
             virtual void Perform() = 0;
     };
 
     class Lion : public Animal
     {
         public:
-            Lion(string name, string region, string specialTrick);
+            Lion(char* name, char* region, char* specialTrick);
             Lion(const Lion &otherAnimal);
             ~Lion();
             Lion &operator=(const Lion &other);
@@ -32,18 +34,19 @@ namespace circus
 
         public:
             void Perform() override;
+            void ChangeName(const char* name);
     };
 
     class Circus
     {
     public:
-        Circus(string name);
+        Circus(char* name);
         Circus(const Circus &otherCircus);
         ~Circus();
         Circus &operator=(const Circus &otherCircus);
 
     public:
-        string name;
+        char* name;
         void Greetings();
         void Perform(Lion* animal);
         void AnnounceBest(Lion* animal);
