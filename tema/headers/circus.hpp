@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include <memory>
 using namespace std;
 namespace circus
 {
@@ -37,21 +38,44 @@ namespace circus
             void ChangeName(const char* name);
     };
 
+    template<typename T1>
+    class Clown: public IPerformer
+    {
+        public:
+            Clown(char* name, const T1& age);
+            ~Clown();
+        public:
+            char* name;
+            T1 age;
+            void Perform() override;
+            template<typename T2>
+            void MakeBaloons(list<T2> shapes);
+    };
+
     class Circus
     {
     public:
-        Circus(char* name);
+        Circus(const char* name);
         Circus(const Circus &otherCircus);
         ~Circus();
         Circus &operator=(const Circus &otherCircus);
 
     public:
-        char* name;
+        unique_ptr<char[]> name;
         void Greetings();
         void Perform(Lion* animal);
+        void Perform(shared_ptr<Lion> animal);
+        template<typename T>
+        void Perform(Clown<T>* clown);
         void AnnounceBest(Lion* animal);
         void End();
     };
+
+    //declaring the explicit instantiations of the templates
+    extern template class Clown<int>;
+    extern template void Clown<int>::MakeBaloons<char>(list<char>);
+    extern template void Clown<int>::MakeBaloons<string>(list<string>);
+    extern template void Circus::Perform<int>(Clown<int>*);
 }
 
 #endif

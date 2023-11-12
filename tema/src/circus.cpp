@@ -2,6 +2,7 @@
 #include <cstring>
 #include <string>
 #include <list>
+#include <memory>
 #include "circus.hpp"
 
 #define RED_TEXT "\033[1;31m"
@@ -24,7 +25,8 @@ namespace circus
         this->specialTrick = new char[strlen(specialTrick) + 1];
         strcpy(this->specialTrick, specialTrick);
 
-        cout << GREEN_TEXT << "Lion class constructor called" << endl << RESET_TEXT;
+        cout << GREEN_TEXT << "Lion class constructor called" << endl
+             << RESET_TEXT;
     }
 
     Lion::Lion(const Lion &otherAnimal)
@@ -38,7 +40,8 @@ namespace circus
         this->specialTrick = new char[strlen(otherAnimal.specialTrick) + 1];
         strcpy(this->specialTrick, otherAnimal.specialTrick);
 
-        cout << YELLOW_TEXT << "Lion class copy constructor called" << endl << RESET_TEXT;
+        cout << YELLOW_TEXT << "Lion class copy constructor called" << endl
+             << RESET_TEXT;
     };
 
     Lion::~Lion()
@@ -47,7 +50,8 @@ namespace circus
         delete[] region;
         delete[] specialTrick;
 
-        cout << RED_TEXT << "Lion class destructor called" << endl << RESET_TEXT;
+        cout << RED_TEXT << "Lion class destructor called" << endl
+             << RESET_TEXT;
     }
 
     Lion &Lion::operator=(const Lion &otherAnimal)
@@ -67,7 +71,8 @@ namespace circus
             this->specialTrick = new char[strlen(otherAnimal.specialTrick) + 1];
             strcpy(this->specialTrick, otherAnimal.specialTrick);
         }
-        cout << YELLOW_TEXT << "Lion class assignment operator called" << endl << RESET_TEXT;
+        cout << YELLOW_TEXT << "Lion class assignment operator called" << endl
+             << RESET_TEXT;
 
         return *this;
     }
@@ -82,7 +87,8 @@ namespace circus
         other.region = nullptr;
         other.specialTrick = nullptr;
 
-        cout << YELLOW_TEXT << "Lion class move constructor called" << endl << RESET_TEXT;
+        cout << YELLOW_TEXT << "Lion class move constructor called" << endl
+             << RESET_TEXT;
     }
 
     void Lion::Perform()
@@ -90,46 +96,66 @@ namespace circus
         cout << "The lion named " << name << " manages to " << specialTrick << "!" << endl;
     }
 
-    Circus::Circus(char *name)
+    template <typename T>
+    Clown<T>::Clown(char *name, const T &age)
     {
         this->name = new char[strlen(name) + 1];
         strcpy(this->name, name);
 
-        cout << GREEN_TEXT << "Circus class object created" << endl << RESET_TEXT;
+        this->age = age;
+
+        cout << YELLOW_TEXT << "Clown class constructor called" << endl
+             << RESET_TEXT;
+    }
+
+    template <typename T>
+    Clown<T>::~Clown()
+    {
+        delete[] name;
+
+        cout << RED_TEXT << "Clown class destructor called" << endl
+             << RESET_TEXT;
+    }
+
+    template <typename T>
+    void Clown<T>::Perform()
+    {
+        cout << name << " manages to make baloons! " << endl;
+    }
+
+    template <typename T1>
+    template <typename T2>
+    void Clown<T1>::MakeBaloons(list<T2> shapes)
+    {
+        cout << "The baloons that " << name << "makes are of various shapes: ";
+        for (typename list<T2>::iterator it = shapes.begin(); it != shapes.end(); ++it)
+        {
+            cout << *it << " ";
+        }
+        cout << endl;
+    }
+
+    Circus::Circus(const char* name)
+    {
+        this->name = std::make_unique<char[]>(strlen(name) + 1);
+        strcpy(this->name.get(), name);
+
+        cout << GREEN_TEXT << "Circus class object created" << endl
+             << RESET_TEXT;
     }
 
     Circus::~Circus()
     {
-        delete[] name;
+        //delete[] name; -no longer needed, name is smart pointer
 
-        cout << RED_TEXT << "Circus class destructor called" << endl << RESET_TEXT;
-    }
-
-    Circus::Circus(const Circus &otherCircus)
-    {
-        this->name = new char[strlen(otherCircus.name) + 1];
-        strcpy(this->name, otherCircus.name);
-        cout << YELLOW_TEXT << "Circus class copy constructor called" << endl
+        cout << RED_TEXT << "Circus class destructor called" << endl
              << RESET_TEXT;
-    }
-
-    Circus &Circus::operator=(const Circus &otherCircus)
-    {
-        if (this != &otherCircus)
-        {
-            delete[] name;
-
-            this->name = new char[strlen(otherCircus.name) + 1];
-            strcpy(this->name, otherCircus.name);
-        }
-        return *this;
-        cout << YELLOW_TEXT << "Circus class assignment operator called" << endl << RESET_TEXT;
     }
 
     void Circus::Greetings()
     {
-        cout << "Hello and welcome to the grand circus of " << name << "!" << endl;
-        cout << "Without further delay, let's see what our fabulous animals have prepared for you!" << endl;
+        cout << "Hello and welcome to the grand circus of " << name.get() << "!" << endl;
+        cout << "Without further delay, let's see what our fabulous performers have prepared for you!" << endl;
     }
 
     void Circus::Perform(Lion *animal)
@@ -142,6 +168,29 @@ namespace circus
         cout << "Spectacular!" << endl;
 
         delete copy;
+    }
+
+    void Circus::Perform(std::shared_ptr<Lion> animal)
+    {
+        // shared pointer copy constructor will handle ownership
+        std::shared_ptr<Lion> copy = std::make_shared<Lion>(*animal);
+
+        std::cout << "Everybody, let's welcome " << copy->name << "! ";
+        std::cout << "He comes to you straight from " << copy->region << "! " << std::endl;
+
+        copy->Perform();
+
+        std::cout << "Spectacular!" << std::endl;
+        // shared pointer will automatically release memory when it goes out of scope
+    }
+
+    template <typename T>
+    void Circus::Perform(Clown<T> *clown)
+    {
+        cout << "Everybody, let's welcome " << clown->name << "! ";
+        cout << "He is " << clown->age << " years old!" << endl;
+        clown->Perform();
+        cout << "Spectacular!" << endl;
     }
 
     void Circus::AnnounceBest(Lion *animal)
@@ -162,4 +211,10 @@ namespace circus
     {
         cout << "That was our performance for the night, thank you!" << endl;
     }
+
+    // declaring the explicit instantiations of the templates
+    template class Clown<int>;
+    template void Clown<int>::MakeBaloons<char>(list<char>);
+    template void Clown<int>::MakeBaloons<string>(list<string>);
+    template void Circus::Perform<int>(Clown<int> *);
 };
